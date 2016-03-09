@@ -18,13 +18,14 @@ module.exports = [
     method: 'POST',
     path: '/counter',
     handler: function (req, reply) {
-      n = req.payload.n;
-      counterStore.counter = n;
+      var counter = req.payload.counter;
+      counterStore.counter = counter;
+      reply(counterStore);
     },
     config:{
       validate: {
         payload: {
-          n: Joi.number().integer().min(0).max(1000)
+          counter: Joi.number().integer().min(0).max(1000)
         }
       }
     }
