@@ -15,8 +15,10 @@ server.start((err) => {
 
 
 const counter = require("./counter");
+const kvstore = require("./kvstore");
 
 server.route(counter);
+server.route(kvstore);
 //var schema = { a: Joi.string().max(255).required()};
 
 // counterStore = {
