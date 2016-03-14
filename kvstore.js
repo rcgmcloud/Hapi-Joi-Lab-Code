@@ -15,15 +15,13 @@ module.exports = [
     method:'GET',
     path:'/kvstore/:key',
     handler: function (req, reply){
-      var key = req.params.key;
+      var k = req.params.key;
 
-      // if(!(kvstore.hasOwnProperty(key))){
+      // if(!(kvstore.hasOwnProperty(k))){
       //   reply('key does not exist').code(404);
       // }
       // else {
-
-        reply(key);
-
+        reply(kvstore[k]);
       // }
     }
   },
@@ -104,19 +102,22 @@ module.exports = [
     method: 'POST',
     path: '/kvstore/array/number',
     handler: function (req, reply){
-      var key = req.payload;
-      var k, v;
-      for (var i in key){
-        k = i;
-        v = key[i];
+      var key = req.payload.key;
+      var value = req.payload.value;
+
+      if (kvstore.hasOwnProperty(key)){
+        reply("already has that key").code(409);
       }
-      reply(key);
+      else {
+        kvstore[key] = value;
+        reply(key + ": " + value);
+      }
     },
     config: {
       validate: {
         payload: {
-          k: Joi.string().token(),
-          v: Joi.array().ordered(Joi.number().min(0).max(1000))
+          key: Joi.string().regex(/([a-zA-Z0-9-_])\w+/).required(),
+          value: Joi.array().items(Joi.number().min(0).max(1000).required())
         }
       }
     }
@@ -125,19 +126,22 @@ module.exports = [
     method: 'POST',
     path: '/kvstore/array',
     handler: function (req, reply){
-      var key = req.payload;
-      var k, v;
-      for (var i in key){
-        k = i;
-        v = key[i];
+      var key = req.payload.key;
+      var value = req.payload.value;
+
+      if (kvstore.hasOwnProperty(key)){
+        reply("already has that key").code(409);
       }
-      reply(key);
+      else {
+        kvstore[key] = value;
+        reply(key + ": " + value);
+      }
     },
     config: {
       validate: {
         payload: {
-          k: Joi.string().token(),
-          v: Joi.array().items(Joi.string().max(10), Joi.number().min(0).max(1000))
+          key: Joi.string().regex(/([a-zA-Z0-9-_])\w+/).required(),
+          value: Joi.array().items(Joi.string().max(10), Joi.number().min(0).max(1000)).min(1)
         }
       }
     }
