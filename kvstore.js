@@ -16,36 +16,39 @@ module.exports = [
     path:'/kvstore/:key',
     handler: function (req, reply){
       var key = req.params.key;
-      if(!key){
-        reply().code(404);
-      }
-      reply(key);
+
+      // if(!(kvstore.hasOwnProperty(key))){
+      //   reply('key does not exist').code(404);
+      // }
+      // else {
+
+        reply(key);
+
+      // }
     }
   },
   {
     method: 'POST',
     path: '/kvstore/string',
     handler: function (req, reply){
-      var isKey = req.params;
-      if(isKey){
-        reply().code(409);
-      }
 
-      var key = req.payload;
-      var k, v;
-      for(var i in key){
-        k = i;
-        v = key[i];
+      var key = req.payload.key;
+      var value = req.payload.value;
+
+      if (kvstore.hasOwnProperty(key)){
+        reply("already has that key").code(409);
       }
-      reply(key);
+      else {
+        kvstore[key] = value;
+        reply(key + ": " + value);
+      }
     },
     config: {
       validate: {
-        payload: {
-          k: Joi.string().token(),
-          v: Joi.string().max(10).required()
-
-        }
+        payload: Joi.object().keys({
+          key: Joi.string().regex(/([a-zA-Z0-9-_])\w+/).required(),
+          value: Joi.string().max(10).required()
+        })
       }
     }
   },
@@ -53,20 +56,23 @@ module.exports = [
     method: 'POST',
     path: '/kvstore/number',
     handler: function (req, reply){
-      var key = req.payload;
-      var k, v;
-      for(var i in key){
-        k = i;
-        v = key[i];
+      var key = req.payload.key;
+      var value = req.payload.value;
+
+      if (kvstore.hasOwnProperty(key)){
+        reply("already has that key").code(409);
       }
-      reply(key);
+      else {
+        kvstore[key] = value;
+        reply(key + ": " + value);
+      }
     },
     config: {
       validate: {
-        payload: {
-          k: Joi.string().token(),
-          v: Joi.number().min(0).max(1000)
-        }
+        payload: Joi.object({
+          key: Joi.string().regex(/([a-zA-Z0-9-_])\w+/).required(),
+          value: Joi.number().min(0).max(1000).required()
+        })
       }
     }
   },
@@ -74,19 +80,22 @@ module.exports = [
     method: 'POST',
     path: '/kvstore/array/string',
     handler: function (req, reply){
-      var key = req.payload;
-      var k, v;
-      for (var i in key){
-        k = i;
-        v = key[i];
+      var key = req.payload.key;
+      var value = req.payload.value;
+
+      if (kvstore.hasOwnProperty(key)){
+        reply("already has that key").code(409);
       }
-      reply(key);
+      else {
+        kvstore[key] = value;
+        reply(key + ": " + value);
+      }
     },
     config: {
       validate: {
         payload: {
-          k: Joi.string().token(),
-          v: Joi.array().ordered(Joi.string().max(10))
+          key: Joi.string().regex(/([a-zA-Z0-9-_])\w+/).required(),
+          value: Joi.array().items(Joi.string().max(10).required())
         }
       }
     }
