@@ -39,13 +39,6 @@ module.exports = [
         counterStore.counter = 1000;
       }
       reply(counterStore);
-    },
-    config: {
-      validate: {
-        payload: {
-
-        }
-      }
     }
   },
   {
@@ -57,13 +50,6 @@ module.exports = [
         counterStore.counter = 0;
       }
       reply(counterStore);
-    },
-    config: {
-      validate: {
-        payload: {
-
-        }
-      }
     }
   }
 ];

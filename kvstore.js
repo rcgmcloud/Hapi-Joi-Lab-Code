@@ -17,12 +17,12 @@ module.exports = [
     handler: function (req, reply){
       var k = req.params.key;
 
-      // if(!(kvstore.hasOwnProperty(k))){
-      //   reply('key does not exist').code(404);
-      // }
-      // else {
+      if(!(kvstore.hasOwnProperty(k))){
+        reply('key does not exist').code(404);
+      }
+      else {
         reply(kvstore[k]);
-      // }
+      }
     }
   },
   {
