@@ -12,7 +12,8 @@
     "32c667c7-f2b1-9031-bdd2-8cb50d95d525",
     "7ce81f27-4f1f-0ab1-3fd7-aceed70b1de4",
     "599fcfa3-8eb6-5821-bd0c-1e9e83e176ba",
-    "5ca730f7-2808-dced-8142-d3232903b68e"
+    "5ca730f7-2808-dced-8142-d3232903b68e",
+    "4298e150-aeb7-65cc-641d-e0134419c4c8"
   ],
   "folders": [],
   "timestamp": 1457493063972,
@@ -50,7 +51,7 @@
       "data": [
         {
           "key": "key",
-          "value": "pineb",
+          "value": "flowerss",
           "type": "text",
           "enabled": true
         },
@@ -66,7 +67,7 @@
       "tests": "",
       "currentHelper": "normal",
       "helperAttributes": {},
-      "time": 1457995302646,
+      "time": 1458046999920,
       "name": "Post kvstore/number",
       "description": "",
       "collectionId": "6c31c0fe-1083-2dc7-5a0d-e360cc06e11d",
@@ -93,6 +94,25 @@
       "helperAttributes": {}
     },
     {
+      "id": "4298e150-aeb7-65cc-641d-e0134419c4c8",
+      "headers": "",
+      "url": "localhost:3000/kvstore/cookie",
+      "preRequestScript": "",
+      "pathVariables": {},
+      "method": "GET",
+      "data": [],
+      "dataMode": "params",
+      "version": 2,
+      "tests": "",
+      "currentHelper": "normal",
+      "helperAttributes": {},
+      "time": 1458047004610,
+      "name": "Get kvstore key",
+      "description": "",
+      "collectionId": "6c31c0fe-1083-2dc7-5a0d-e360cc06e11d",
+      "responses": []
+    },
+    {
       "id": "599fcfa3-8eb6-5821-bd0c-1e9e83e176ba",
       "headers": "",
       "url": "localhost:3000/kvstore/array/number",
@@ -102,7 +122,7 @@
       "data": [
         {
           "key": "key",
-          "value": "pinebdf",
+          "value": "four-seven",
           "type": "text",
           "enabled": true
         },
@@ -118,7 +138,7 @@
       "tests": "",
       "currentHelper": "normal",
       "helperAttributes": {},
-      "time": 1457995378100,
+      "time": 1458046994658,
       "name": "Post kvstore/array/number",
       "description": "",
       "collectionId": "6c31c0fe-1083-2dc7-5a0d-e360cc06e11d",
@@ -128,34 +148,33 @@
       "id": "5ca730f7-2808-dced-8142-d3232903b68e",
       "headers": "",
       "url": "localhost:3000/kvstore/array",
-      "pathVariables": {},
       "preRequestScript": "",
+      "pathVariables": {},
       "method": "POST",
-      "collectionId": "6c31c0fe-1083-2dc7-5a0d-e360cc06e11d",
       "data": [
         {
           "key": "key",
-          "value": "pinebdff",
+          "value": "youve_been",
           "type": "text",
           "enabled": true
         },
         {
           "key": "value",
-          "value": "[4, \"tottles\"]",
+          "value": "[4, \"warned\"]",
           "type": "text",
           "enabled": true
         }
       ],
       "dataMode": "urlencoded",
-      "name": "Post kvstore/array",
-      "description": "",
-      "descriptionFormat": "html",
-      "time": 1457995401870,
       "version": 2,
-      "responses": [],
       "tests": "",
       "currentHelper": "normal",
-      "helperAttributes": {}
+      "helperAttributes": {},
+      "time": 1458046991686,
+      "name": "Post kvstore/array",
+      "description": "",
+      "collectionId": "6c31c0fe-1083-2dc7-5a0d-e360cc06e11d",
+      "responses": []
     },
     {
       "id": "7ce81f27-4f1f-0ab1-3fd7-aceed70b1de4",
@@ -167,7 +186,7 @@
       "data": [
         {
           "key": "key",
-          "value": "pinebd",
+          "value": "oh",
           "type": "text",
           "enabled": true
         },
@@ -183,7 +202,7 @@
       "tests": "",
       "currentHelper": "normal",
       "helperAttributes": {},
-      "time": 1457995343583,
+      "time": 1458046997375,
       "name": "Post kvstore/array/string",
       "description": "",
       "collectionId": "6c31c0fe-1083-2dc7-5a0d-e360cc06e11d",
@@ -218,30 +237,17 @@
     {
       "id": "80345fef-3b8e-d3cd-b7aa-f88392689109",
       "headers": "",
-      "url": "localhost:3000/kvstore/string",
+      "url": "localhost:3000/kvstore",
       "preRequestScript": "",
       "pathVariables": {},
-      "method": "POST",
-      "data": [
-        {
-          "key": "key",
-          "value": "pine",
-          "type": "text",
-          "enabled": true
-        },
-        {
-          "key": "value",
-          "value": "apple",
-          "type": "text",
-          "enabled": true
-        }
-      ],
-      "dataMode": "urlencoded",
+      "method": "GET",
+      "data": [],
+      "dataMode": "params",
       "version": 2,
       "tests": "",
       "currentHelper": "normal",
       "helperAttributes": {},
-      "time": 1457994812159,
+      "time": 1458024466412,
       "name": "Get kvstore",
       "description": "",
       "collectionId": "6c31c0fe-1083-2dc7-5a0d-e360cc06e11d",
@@ -277,13 +283,13 @@
       "data": [
         {
           "key": "key",
-          "value": "pine",
+          "value": "cookie",
           "type": "text",
           "enabled": true
         },
         {
           "key": "value",
-          "value": "apple",
+          "value": "monster",
           "type": "text",
           "enabled": true
         }
@@ -293,7 +299,7 @@
       "tests": "",
       "currentHelper": "normal",
       "helperAttributes": {},
-      "time": 1457995262890,
+      "time": 1458047002035,
       "name": "Post kvstore/string",
       "description": "",
       "collectionId": "6c31c0fe-1083-2dc7-5a0d-e360cc06e11d",

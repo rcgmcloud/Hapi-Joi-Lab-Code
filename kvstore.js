@@ -23,6 +23,7 @@ module.exports = [
       else {
         reply(kvstore[k]);
       }
+
     }
   },
   {
@@ -38,7 +39,11 @@ module.exports = [
       }
       else {
         kvstore[key] = value;
-        reply(key + ": " + value);
+
+        var kvpair = {};
+        kvpair[key] = value;
+
+        reply(kvpair);
       }
     },
     config: {
@@ -62,7 +67,11 @@ module.exports = [
       }
       else {
         kvstore[key] = value;
-        reply(key + ": " + value);
+
+        var kvpair = {};
+        kvpair[key] = value;
+
+        reply(kvpair);
       }
     },
     config: {
@@ -86,7 +95,11 @@ module.exports = [
       }
       else {
         kvstore[key] = value;
-        reply(key + ": " + value);
+
+        var kvpair = {};
+        kvpair[key] = value;
+
+        reply(kvpair);
       }
     },
     config: {
@@ -110,7 +123,11 @@ module.exports = [
       }
       else {
         kvstore[key] = value;
-        reply(key + ": " + value);
+
+        var kvpair = {};
+        kvpair[key] = value;
+
+        reply(kvpair);
       }
     },
     config: {
@@ -134,7 +151,11 @@ module.exports = [
       }
       else {
         kvstore[key] = value;
-        reply(key + ": " + value);
+
+        var kvpair = {};
+        kvpair[key] = value;
+
+        reply(kvpair);
       }
     },
     config: {
