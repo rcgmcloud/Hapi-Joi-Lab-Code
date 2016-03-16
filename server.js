@@ -1,6 +1,8 @@
 //var Boom = require('boom');
 //var err = Boom.badRequest('MyError');
 //var Joi = require('joi');
+
+
 const Hapi = require('hapi');
 const server = new Hapi.Server();
 server.connection({ port: 3000 });
@@ -19,10 +21,3 @@ const kvstore = require("./kvstore");
 
 server.route(counter);
 server.route(kvstore);
-//var schema = { a: Joi.string().max(255).required()};
-
-// counterStore = {
-//   counter: 0
-// };
-
-// kvstore = {};

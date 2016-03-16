@@ -4,8 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./node_modules/lab/bin/lab -e lab -m 5000 -r html -o ./lab/result/index.html ./lab",
+    "start": "node ./src/index.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "code": "^2.1.1",
+    "lab": "^10.3.0"
+  },
+  "dependencies": {
+    "hapi": "^13.0.0",
+    "joi": "^8.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rcgmcloud/Hapi-Joi-Lab-Code.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rcgmcloud/Hapi-Joi-Lab-Code/issues"
+  },
+  "homepage": "https://github.com/rcgmcloud/Hapi-Joi-Lab-Code#readme"
 }
