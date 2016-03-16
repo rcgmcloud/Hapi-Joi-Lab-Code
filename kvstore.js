@@ -13,7 +13,7 @@ module.exports = [
   },
   {
     method:'GET',
-    path:'/kvstore/:key',
+    path:'/kvstore/{key}',
     handler: function (req, reply){
       var k = req.params.key;
 
@@ -21,7 +21,12 @@ module.exports = [
         reply('key does not exist').code(404);
       }
       else {
-        reply(kvstore[k]);
+        var kvpair = {
+          "key": k,
+          "value": kvstore[k]
+        };
+
+        reply(kvpair);
       }
 
     }
@@ -40,8 +45,10 @@ module.exports = [
       else {
         kvstore[key] = value;
 
-        var kvpair = {};
-        kvpair[key] = value;
+        var kvpair = {
+          "key": key,
+          "value": kvstore[key]
+        };
 
         reply(kvpair);
       }
@@ -68,8 +75,10 @@ module.exports = [
       else {
         kvstore[key] = value;
 
-        var kvpair = {};
-        kvpair[key] = value;
+        var kvpair = {
+          "key": key,
+          "value": kvstore[key]
+        };
 
         reply(kvpair);
       }
@@ -96,8 +105,10 @@ module.exports = [
       else {
         kvstore[key] = value;
 
-        var kvpair = {};
-        kvpair[key] = value;
+        var kvpair = {
+          "key": key,
+          "value": kvstore[key]
+        };
 
         reply(kvpair);
       }
@@ -124,8 +135,10 @@ module.exports = [
       else {
         kvstore[key] = value;
 
-        var kvpair = {};
-        kvpair[key] = value;
+        var kvpair = {
+          "key": key,
+          "value": kvstore[key]
+        };
 
         reply(kvpair);
       }
@@ -152,8 +165,10 @@ module.exports = [
       else {
         kvstore[key] = value;
 
-        var kvpair = {};
-        kvpair[key] = value;
+        var kvpair = {
+          "key": key,
+          "value": kvstore[key]
+        };
 
         reply(kvpair);
       }
