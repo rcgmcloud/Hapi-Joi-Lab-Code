@@ -598,19 +598,93 @@ lab.experiment('Kvstore', function() {
       });
   });
 
-// //POST kvstore/array
-//   lab.test('key should be "profile", value should be ["John", 35]', function (done) {
-//   });
-//   lab.test('key with numbers, letters, underscore, or dashes should be allowed', function (done) {
-//   });
-//   lab.test('if key exists, should return 409 status code', function (done) {
-//   });
-//   lab.test('value should accept array with strings or numbers', function (done) {
-//   });
-//   lab.test('value strings should not exceed 10 characters', function (done) {
-//   });
-//   lab.test('numbers should be between 0 and 1000', function (done) {
-//   });
+//POST kvstore/array
+  lab.test('key should be "profile", value should be ["John", 35]', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array',
+            payload: {
+              key: "profile",
+              value: ["John", 35]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.result).to.deep.equal({key:"profile", value: ["John", 35]})
+        Code.expect(response.statusCode).to.equal(200);
+        done();
+      });
+  });
+  lab.test('key with numbers, letters, underscore, or dashes should be allowed', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array',
+            payload: {
+              key: "Action1_-",
+              value: ["Jump", 4]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.result).to.deep.equal({key: "Action1_-", value: ["Jump", 4]});
+        Code.expect(response.statusCode).to.equal(200);
+        done();
+      });
+  });
+  lab.test('key should not contain illegal characters', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array',
+            payload: {
+              key: "#$*^&",
+              value: ["Doh", 4]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        done();
+      });
+  });
+  lab.test('if key exists, should return 409 status code', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array',
+            payload: {
+              key: "profile",
+              value: ["Doh", 4]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(409);
+        done();
+      });
+  });
+  lab.test('value strings should not exceed 10 characters', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array',
+            payload: {
+              key: "bigWords",
+              value: ["supercalifragilistix", 4]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        done();
+      });
+  });
+  lab.test('numbers should be between 0 and 1000', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array',
+            payload: {
+              key: "bigNum",
+              value: ["high", 1001]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        done();
+      });
+  });
 
 
 });
