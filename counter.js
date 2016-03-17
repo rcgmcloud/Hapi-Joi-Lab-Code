@@ -35,18 +35,13 @@ module.exports = [
     path: '/counter/increment',
     handler: function (req, reply) {
       counterStore.counter++;
-      // if(counterStore.counter > 1000){
-      //   counterStore.counter = 1000;
-      // }
-      reply(counterStore);
-    },
-    config:{
-      validate: {
-        payload: {
-          counter: Joi.number().integer().min(0).max(1000)
-        }
+      if(counterStore.counter > 1000){
+        reply("You cannot increment above 1000").code(400);
       }
-    }
+      else {
+      reply(counterStore);
+      }
+    },
   },
   {
     method: 'PUT',
@@ -54,9 +49,11 @@ module.exports = [
     handler: function (req, reply) {
       counterStore.counter--;
       if(counterStore.counter < 0){
-        counterStore.counter = 0;
+        reply("You cannot decrement below 0").code(400);
       }
+      else {
       reply(counterStore);
+      }
     }
   }
 ];

@@ -119,8 +119,8 @@ lab.experiment('Counter', function() {
         Server.inject(reset_counter, function(response) {
 
             Server.inject(increment_counter, function(response) {
-                Code.expect(response.statusCode).to.equal(200);
                 Code.expect(response.result).to.deep.equal({counter: 1});
+                Code.expect(response.statusCode).to.equal(200);
                 done();
             });
 
@@ -178,20 +178,13 @@ lab.experiment('Counter', function() {
   });
 
   lab.test('counter should not decrement below 0', function (done) {
-        const option1 = {
-            method: 'POST',
-            url: '/counter',
-            payload: {
-                counter: 0
-            }
-        };
 
-        const option2 = {
+        const option1 = {
             method: 'PUT',
             url: '/counter/decrement',
         };
 
-        Server.inject(option1, option2, function(response) {
+        Server.inject(option1, function(response) {
             Code.expect(response.statusCode).to.equal(400);
             done();
         });
@@ -203,5 +196,170 @@ lab.experiment('Counter', function() {
 
 
 lab.experiment('Kvstore', function() {
+
+  //GET kvstore
+  lab.test('kvstore should be empty', function (done) {
+     const options = {
+            method: 'GET',
+            url: '/kvstore',
+        };
+
+        Server.inject(options, function(response) {
+            var result = response.result;
+            Code.expect(result).to.deep.equal({});
+            done();
+        });
+  });
+
+  //GET kvstore key
+  lab.test('if "spam" requested, value should be "musubi', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/string',
+            payload: {
+                key: "spam",
+                value: "musubi"
+            }
+        };
+    const get = {
+            method: 'GET',
+            url: '/kvstore/spam'
+        };
+
+        Server.inject(post, function(response) {
+          Server.inject(get, function(response) {
+            var result = response.result;
+            Code.expect(result).to.deep.equal({key: "spam", value: "musubi"});
+            done();
+          });
+        });
+  });
+  lab.test('if key does not exist, return 404', function (done) {
+      const get = {
+            method: 'GET',
+            url: '/kvstore/leprechaun'
+        };
+
+      Server.inject(get, function(response) {
+        Code.expect(response.statusCode).to.equal(404);
+        done();
+      });
+  });
+
+  //POST kvstore/string
+  lab.test('key should be "pine", value should be "apple"', function (done) {
+      const post = {
+            method: 'POST',
+            url: '/kvstore/string',
+            payload: {
+              key: "pine",
+              value: "apple"
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.result).to.deep.equal({key: "pine", value: "apple"})
+        Code.expect(response.statusCode).to.equal(200);
+        done();
+      });
+  });
+  lab.test('key with numbers, letters, underscore, or dashes should be allowed', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/string',
+            payload: {
+              key: "Pine1_-",
+              value: "apple"
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.result).to.deep.equal({key: "Pine1_-", value: "apple"})
+        Code.expect(response.statusCode).to.equal(200);
+        done();
+      });
+  });
+  lab.test('key should not contain illegal characters', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/string',
+            payload: {
+              key: "$*^&",
+              value: "apple"
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        done();
+      });
+  });
+  lab.test('if key exists, should return 409 status code', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/string',
+            payload: {
+              key: "pine",
+              value: "apple"
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(409);
+        done();
+      });
+  });
+  // lab.test('value should be a string', function (done) {
+  // });
+  // lab.test('value string should not exceed 10 characters', function (done) {
+  // });
+
+
+//   //POST kvstore/number
+//   lab.test('key should be "cloud", value should be 9', function (done) {
+//   });
+//   lab.test('key with numbers, letters, underscore, or dashes should be allowed', function (done) {
+//   });
+//   lab.test('if key exists, should return 409 status code', function (done) {
+//   });
+//   lab.test('value should be a number', function (done) {
+//   });
+//   lab.test('value should be between 0 and 1000', function (done) {
+//   });
+
+//   //POST kvstore/array/string
+//   lab.test('key should be "colors", value should be ["red", "yellow", "blue"]', function (done) {
+//   });
+//   lab.test('key with numbers, letters, underscore, or dashes should be allowed', function (done) {
+//   });
+//   lab.test('if key exists, should return 409 status code', function (done) {
+//   });
+//   lab.test('value should be an array with only strings', function (done) {
+//   });
+//   lab.test('value strings should not exceed 10 characters', function (done) {
+//   });
+
+//   //POST kvstore/array/number
+//   lab.test('key should be "prime", value should be [3, 5, 7]', function (done) {
+//   });
+//   lab.test('key with numbers, letters, underscore, or dashes should be allowed', function (done) {
+//   });
+//   lab.test('if key exists, should return 409 status code', function (done) {
+//   });
+//   lab.test('value should be an array with only numbers', function (done) {
+//   });
+//   lab.test('numbers should be between 0 and 1000', function (done) {
+//   });
+
+// //POST kvstore/array
+//   lab.test('key should be "profile", value should be ["John", 35]', function (done) {
+//   });
+//   lab.test('key with numbers, letters, underscore, or dashes should be allowed', function (done) {
+//   });
+//   lab.test('if key exists, should return 409 status code', function (done) {
+//   });
+//   lab.test('value should accept array with strings or numbers', function (done) {
+//   });
+//   lab.test('value strings should not exceed 10 characters', function (done) {
+//   });
+//   lab.test('numbers should be between 0 and 1000', function (done) {
+//   });
+
 
 });
