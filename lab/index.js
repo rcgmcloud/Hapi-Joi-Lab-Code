@@ -451,7 +451,7 @@ lab.experiment('Kvstore', function() {
             }
       };
       Server.inject(post, function(response) {
-        Code.expect(response.result).to.deep.equal({key: "color", value: ["red", "yellow", "blue"]})
+        Code.expect(response.result).to.deep.equal({key: "color", value: ["red", "yellow", "blue"]});
         Code.expect(response.statusCode).to.equal(200);
         done();
       });
@@ -643,6 +643,38 @@ lab.experiment('Kvstore', function() {
         done();
       });
   });
+  lab.test('value should not accept objects', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array',
+            payload: {
+              key: "profile",
+              value: ["John", {hello: "world"}]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
+        done();
+      });
+  });
+  lab.test('value should not accept arrays', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array',
+            payload: {
+              key: "profile",
+              value: ["John", ["hello", "world"]]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
+        done();
+      });
+  });
   lab.test('key with numbers, letters, underscore, or dashes should be allowed', function (done) {
     const post = {
             method: 'POST',
@@ -704,7 +736,7 @@ lab.experiment('Kvstore', function() {
         done();
       });
   });
-  lab.test('numbers should be between 0 and 1000', function (done) {
+  lab.test('numbers should not exceed 1000', function (done) {
     const post = {
             method: 'POST',
             url: '/kvstore/array',
@@ -720,6 +752,21 @@ lab.experiment('Kvstore', function() {
         done();
       });
   });
-
+  lab.test('numbers should not go below 0', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array',
+            payload: {
+              key: "lowNum",
+              value: ["low", -1]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
+        done();
+      });
+  });
 
 });
