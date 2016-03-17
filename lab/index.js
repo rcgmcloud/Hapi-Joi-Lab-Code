@@ -511,17 +511,92 @@ lab.experiment('Kvstore', function() {
       });
   });
 
-//   //POST kvstore/array/number
-//   lab.test('key should be "prime", value should be [3, 5, 7]', function (done) {
-//   });
-//   lab.test('key with numbers, letters, underscore, or dashes should be allowed', function (done) {
-//   });
-//   lab.test('if key exists, should return 409 status code', function (done) {
-//   });
-//   lab.test('value should be an array with only numbers', function (done) {
-//   });
-//   lab.test('numbers should be between 0 and 1000', function (done) {
-//   });
+  //POST kvstore/array/number
+  lab.test('key should be "prime", value should be [3, 5, 7]', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array/number',
+            payload: {
+              key: "prime",
+              value: [3, 5, 7]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.result).to.deep.equal({key: "prime", value: [3, 5, 7]});
+        Code.expect(response.statusCode).to.equal(200);
+        done();
+      });
+  });
+  lab.test('key should not contain illegal characters', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array/number',
+            payload: {
+              key: "$*^&",
+              value: [3, 4]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        done();
+      });
+  });
+  lab.test('if key exists, should return 409 status code', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array/number',
+            payload: {
+              key: "prime",
+              value: [11, 13]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(409);
+        done();
+      });
+  });
+  lab.test('if key exists, should return 409 status code', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array/number',
+            payload: {
+              key: "prime",
+              value: [3, 5, 7]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(409);
+        done();
+      });
+  });
+  lab.test('value should be an array with only numbers', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array/number',
+            payload: {
+              key: "mix",
+              value: [3, 5, "seven"]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        done();
+      });
+  });
+  lab.test('numbers should be between 0 and 1000', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/array/number',
+            payload: {
+              key: "prime",
+              value: [3, 5, 1001]
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        done();
+      });
+  });
 
 // //POST kvstore/array
 //   lab.test('key should be "profile", value should be ["John", 35]', function (done) {
