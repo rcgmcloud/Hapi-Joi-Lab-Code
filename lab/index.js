@@ -64,7 +64,10 @@ lab.experiment('Counter', function() {
         };
 
         Server.inject(options, function(response) {
+            console.log("response.result", response.result);
             Code.expect(response.statusCode).to.equal(400);
+            Code.expect(response.result.error).to.equal('Bad Request');
+            Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
             done();
         });
 
@@ -81,6 +84,8 @@ lab.experiment('Counter', function() {
 
         Server.inject(options, function(response) {
             Code.expect(response.statusCode).to.equal(400);
+             Code.expect(response.result.error).to.equal('Bad Request');
+            Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
             done();
         });
 
@@ -97,6 +102,8 @@ lab.experiment('Counter', function() {
 
         Server.inject(options, function(response) {
             Code.expect(response.statusCode).to.equal(400);
+             Code.expect(response.result.error).to.equal('Bad Request');
+            Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
             done();
         });
 
@@ -288,6 +295,8 @@ lab.experiment('Kvstore', function() {
       };
       Server.inject(post, function(response) {
         Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
         done();
       });
   });
@@ -316,6 +325,8 @@ lab.experiment('Kvstore', function() {
       };
       Server.inject(post, function(response) {
         Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
         done();
       });
   });
@@ -330,6 +341,8 @@ lab.experiment('Kvstore', function() {
       };
       Server.inject(post, function(response) {
         Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
         done();
       });
   });
@@ -377,6 +390,8 @@ lab.experiment('Kvstore', function() {
       };
       Server.inject(post, function(response) {
         Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
         done();
       });
   });
@@ -405,6 +420,8 @@ lab.experiment('Kvstore', function() {
       };
       Server.inject(post, function(response) {
         Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
         done();
       });
   });
@@ -465,6 +482,8 @@ lab.experiment('Kvstore', function() {
       };
       Server.inject(post, function(response) {
         Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
         done();
       });
   });
@@ -493,6 +512,8 @@ lab.experiment('Kvstore', function() {
       };
       Server.inject(post, function(response) {
         Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
         done();
       });
   });
@@ -507,6 +528,8 @@ lab.experiment('Kvstore', function() {
       };
       Server.inject(post, function(response) {
         Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
         done();
       });
   });
@@ -538,6 +561,8 @@ lab.experiment('Kvstore', function() {
       };
       Server.inject(post, function(response) {
         Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
         done();
       });
   });
@@ -580,6 +605,8 @@ lab.experiment('Kvstore', function() {
       };
       Server.inject(post, function(response) {
         Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
         done();
       });
   });
@@ -594,6 +621,8 @@ lab.experiment('Kvstore', function() {
       };
       Server.inject(post, function(response) {
         Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
         done();
       });
   });
@@ -640,6 +669,8 @@ lab.experiment('Kvstore', function() {
       };
       Server.inject(post, function(response) {
         Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
         done();
       });
   });
@@ -668,6 +699,8 @@ lab.experiment('Kvstore', function() {
       };
       Server.inject(post, function(response) {
         Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
         done();
       });
   });
@@ -682,6 +715,8 @@ lab.experiment('Kvstore', function() {
       };
       Server.inject(post, function(response) {
         Code.expect(response.statusCode).to.equal(400);
+        Code.expect(response.result.error).to.equal('Bad Request');
+        Code.expect(response.result.hasOwnProperty("validation")).to.equal(true);
         done();
       });
   });
