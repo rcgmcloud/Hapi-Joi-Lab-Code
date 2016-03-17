@@ -305,10 +305,34 @@ lab.experiment('Kvstore', function() {
         done();
       });
   });
-  // lab.test('value should be a string', function (done) {
-  // });
-  // lab.test('value string should not exceed 10 characters', function (done) {
-  // });
+  lab.test('value should be a string', function (done) {
+      const post = {
+            method: 'POST',
+            url: '/kvstore/string',
+            payload: {
+              key: "pine",
+              value: 4
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        done();
+      });
+  });
+  lab.test('value string should not exceed 10 characters', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/string',
+            payload: {
+              key: "pine",
+              value: "123456789TE"
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        done();
+      });
+  });
 
 
 //   //POST kvstore/number
