@@ -35,10 +35,17 @@ module.exports = [
     path: '/counter/increment',
     handler: function (req, reply) {
       counterStore.counter++;
-      if(counterStore.counter > 1000){
-        counterStore.counter = 1000;
-      }
+      // if(counterStore.counter > 1000){
+      //   counterStore.counter = 1000;
+      // }
       reply(counterStore);
+    },
+    config:{
+      validate: {
+        payload: {
+          counter: Joi.number().integer().min(0).max(1000)
+        }
+      }
     }
   },
   {
