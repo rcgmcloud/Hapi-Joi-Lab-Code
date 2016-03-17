@@ -7,6 +7,21 @@ const Server = require('../server.js');
 
 lab.experiment('Counter', function() {
 
+   lab.beforeEach(function (done) {
+        const reset_counter = {
+            method: 'POST',
+            url: '/counter',
+            payload: {
+                counter: 0
+            }
+        };
+
+        Server.inject(reset_counter, function(response){
+          done();
+        });
+
+    });
+
   lab.test('counter should equal 0', function (done) {
         const options = {
             method: 'GET',
@@ -88,7 +103,7 @@ lab.experiment('Counter', function() {
   });
 
   lab.test('counter should increment by 1', function (done) {
-        const option1 = {
+        const reset_counter = {
             method: 'POST',
             url: '/counter',
             payload: {
@@ -96,16 +111,22 @@ lab.experiment('Counter', function() {
             }
         };
 
-        const option2 = {
+        const increment_counter = {
             method: 'PUT',
             url: '/counter/increment',
         };
 
-        Server.inject(option1, option2, function(response) {
-            Code.expect(response.statusCode).to.equal(200);
-            Code.expect(response.body).to.equal({"counter": 1});
-            done();
+        Server.inject(reset_counter, function(response) {
+
+            Server.inject(increment_counter, function(response) {
+                Code.expect(response.statusCode).to.equal(200);
+                Code.expect(response.result).to.deep.equal({counter: 1});
+                done();
+            });
+
         });
+
+
 
   });
 
