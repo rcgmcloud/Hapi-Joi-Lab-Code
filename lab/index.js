@@ -32,7 +32,7 @@ lab.experiment('Counter', function() {
         };
 
         Server.inject(options, function(response) {
-            Code.expect(response.body).to.equal({"counter": 50});
+            Code.expect(response.result).to.deep.equal({counter: 50});
             Code.expect(response.statusCode).to.equal(200);
             done();
         });
