@@ -335,17 +335,93 @@ lab.experiment('Kvstore', function() {
   });
 
 
-//   //POST kvstore/number
-//   lab.test('key should be "cloud", value should be 9', function (done) {
-//   });
-//   lab.test('key with numbers, letters, underscore, or dashes should be allowed', function (done) {
-//   });
-//   lab.test('if key exists, should return 409 status code', function (done) {
-//   });
-//   lab.test('value should be a number', function (done) {
-//   });
-//   lab.test('value should be between 0 and 1000', function (done) {
-//   });
+  //POST kvstore/number
+  lab.test('key should be "cloud", value should be 9', function (done) {
+     const post = {
+            method: 'POST',
+            url: '/kvstore/number',
+            payload: {
+              key: "cloud",
+              value: 9
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.result).to.deep.equal({key: "cloud", value: 9});
+        Code.expect(response.statusCode).to.equal(200);
+        done();
+      });
+  });
+  lab.test('key with numbers, letters, underscore, or dashes should be allowed', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/number',
+            payload: {
+              key: "Metal1_-",
+              value: 4
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.result).to.deep.equal({key: "Metal1_-", value: 4});
+        Code.expect(response.statusCode).to.equal(200);
+        done();
+      });
+  });
+  lab.test('key should not contain illegal characters', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/number',
+            payload: {
+              key: "$*^&",
+              value: 5
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        done();
+      });
+  });
+  lab.test('if key exists, should return 409 status code', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/number',
+            payload: {
+              key: "cloud",
+              value: 10
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(409);
+        done();
+      });
+  });
+  lab.test('value should be a number', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/number',
+            payload: {
+              key: "cloud",
+              value: "ten"
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        done();
+      });
+  });
+  lab.test('value should be between 0 and 1000', function (done) {
+    const post = {
+            method: 'POST',
+            url: '/kvstore/number',
+            payload: {
+              key: "cloud",
+              value: 1001
+            }
+      };
+      Server.inject(post, function(response) {
+        Code.expect(response.statusCode).to.equal(400);
+        done();
+      });
+  });
 
 //   //POST kvstore/array/string
 //   lab.test('key should be "colors", value should be ["red", "yellow", "blue"]', function (done) {
