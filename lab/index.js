@@ -3,7 +3,7 @@
 const Lab = require('lab');
 const lab = exports.lab = Lab.script();
 const Code = require('code');
-const Server = require('./server.js');
+const Server = require('../server.js');
 
 lab.experiment('Counter', function() {
 
@@ -14,7 +14,9 @@ lab.experiment('Counter', function() {
         };
 
         Server.inject(options, function(response) {
-            Code.expect(response.body).to.equal({"counter": 0});
+            console.log("result: ", response.result);
+            var result = response.result;
+            Code.expect(result).to.deep.equal({counter: 0});
             done();
         });
 
